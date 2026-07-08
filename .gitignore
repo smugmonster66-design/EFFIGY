@@ -1,0 +1,12 @@
+build/
+Builds/
+cmake-build-*/
+*.vst3
+*.component
+*.pkg
+*.zip
+dist/*
+!dist/.gitkeep
+.DS_Store
+.vs/
+node_modules/
