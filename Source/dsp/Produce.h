@@ -36,7 +36,7 @@ namespace effigy
 
         // Room
         bool  roomOn = false; float roomMix = 0.2f, roomSize = 0.4f; bool roomDirty = true;
-        juce::dsp::Reverb reverb;
+        juce::Reverb reverb;
 
         // Tilt
         bool  tiltOn = false; float tiltDbV = 0.f; bool tiltDirty = true;

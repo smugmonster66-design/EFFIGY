@@ -148,7 +148,7 @@ namespace effigy
         for (auto& kv : p.values)
             if (auto* param = apvts.getParameter(kv.first))
             {
-                auto& range = apvts.getParameterRange(kv.first);
+                const auto& range = apvts.getParameterRange(kv.first);
                 param->setValueNotifyingHost(range.convertTo0to1(kv.second));
             }
     }

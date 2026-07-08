@@ -65,7 +65,7 @@ namespace effigy
 
         const int circ = (int) g(circuit);
         drive.setCircuit(circ);
-        drive.setParams(g(drive), g(driveLevel), g(character));
+        drive.setParams(g(params::drive), g(driveLevel), g(character));
         drive.feel().setFeel(g(feel) * 0.01f);
         drive.feel().setSag(g(sagDepth) * 0.01f, g(sagRecovery));
         drive.feel().setBloomKnee(g(bloomKnee));

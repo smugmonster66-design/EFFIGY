@@ -10,7 +10,7 @@ namespace effigy
         delayL.setMaximumDelayInSamples(4096);
         delayR.setMaximumDelayInSamples(4096);
 
-        reverb.prepare(spec);
+        reverb.setSampleRate(spec.sampleRate);
         roomDirty = tiltDirty = true;
 
         juce::dsp::ProcessSpec mono { spec.sampleRate, spec.maximumBlockSize, 1 };
@@ -102,7 +102,7 @@ namespace effigy
         {
             if (roomDirty)
             {
-                juce::dsp::Reverb::Parameters p;
+                juce::Reverb::Parameters p;
                 p.roomSize   = juce::jmap(roomSize, 0.f, 1.f, 0.1f, 0.5f);
                 p.damping    = 0.5f;
                 p.width      = 1.f;

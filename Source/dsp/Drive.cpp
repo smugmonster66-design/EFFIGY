@@ -41,41 +41,41 @@ namespace effigy
         if (juce::approximatelyEqual((float) circuit, lastCircuit))
             return;
         lastCircuit = (float) circuit;
-        auto& C = juce::dsp::IIR::Coefficients<float>::makeHighPass;
-        auto& LP = juce::dsp::IIR::Coefficients<float>::makeLowPass;
-        auto& PK = juce::dsp::IIR::Coefficients<float>::makePeakFilter;
+        auto C  = [this](double f) { return juce::dsp::IIR::Coefficients<float>::makeHighPass(sampleRate, f); };
+        auto LP = [this](double f) { return juce::dsp::IIR::Coefficients<float>::makeLowPass(sampleRate, f); };
+        auto PK = [this](double f, float q, float g) { return juce::dsp::IIR::Coefficients<float>::makePeakFilter(sampleRate, f, q, g); };
 
         switch (circuit)
         {
             case 0: // WAX - clean/warm, gentle top roll
-                preHPF.coefficients  = C(sampleRate, 30.0);
-                preTilt.coefficients = PK(sampleRate, 500.0, 0.7f, 1.05f);
-                postLPF.coefficients = LP(sampleRate, 12000.0);
-                postPresence.coefficients = PK(sampleRate, 3000.0, 0.7f, 1.0f);
+                preHPF.coefficients  = C(30.0);
+                preTilt.coefficients = PK(500.0, 0.7f, 1.05f);
+                postLPF.coefficients = LP(12000.0);
+                postPresence.coefficients = PK(3000.0, 0.7f, 1.0f);
                 break;
             case 1: // STRAW - loose low, lively
-                preHPF.coefficients  = C(sampleRate, 45.0);
-                preTilt.coefficients = PK(sampleRate, 800.0, 0.6f, 1.1f);
-                postLPF.coefficients = LP(sampleRate, 9000.0);
-                postPresence.coefficients = PK(sampleRate, 2600.0, 0.8f, 1.1f);
+                preHPF.coefficients  = C(45.0);
+                preTilt.coefficients = PK(800.0, 0.6f, 1.1f);
+                postLPF.coefficients = LP(9000.0);
+                postPresence.coefficients = PK(2600.0, 0.8f, 1.1f);
                 break;
             case 2: // WICKER - midrange complex crunch
-                preHPF.coefficients  = C(sampleRate, 70.0);
-                preTilt.coefficients = PK(sampleRate, 1000.0, 0.9f, 1.25f);
-                postLPF.coefficients = LP(sampleRate, 7000.0);
-                postPresence.coefficients = PK(sampleRate, 2800.0, 0.9f, 1.15f);
+                preHPF.coefficients  = C(70.0);
+                preTilt.coefficients = PK(1000.0, 0.9f, 1.25f);
+                postLPF.coefficients = LP(7000.0);
+                postPresence.coefficients = PK(2800.0, 0.9f, 1.15f);
                 break;
             case 3: // BRONZE - tight modern, firm low
-                preHPF.coefficients  = C(sampleRate, 95.0);
-                preTilt.coefficients = PK(sampleRate, 1200.0, 1.0f, 0.9f);
-                postLPF.coefficients = LP(sampleRate, 6000.0);
-                postPresence.coefficients = PK(sampleRate, 3200.0, 1.0f, 1.2f);
+                preHPF.coefficients  = C(95.0);
+                preTilt.coefficients = PK(1200.0, 1.0f, 0.9f);
+                postLPF.coefficients = LP(6000.0);
+                postPresence.coefficients = PK(3200.0, 1.0f, 1.2f);
                 break;
             case 4: // ASH - extreme, fizz management post
-                preHPF.coefficients  = C(sampleRate, 120.0);
-                preTilt.coefficients = PK(sampleRate, 1400.0, 1.1f, 0.85f);
-                postLPF.coefficients = LP(sampleRate, 5000.0);       // built-in fizz control
-                postPresence.coefficients = PK(sampleRate, 3500.0, 1.1f, 1.15f);
+                preHPF.coefficients  = C(120.0);
+                preTilt.coefficients = PK(1400.0, 1.1f, 0.85f);
+                postLPF.coefficients = LP(5000.0);       // built-in fizz control
+                postPresence.coefficients = PK(3500.0, 1.1f, 1.15f);
                 break;
         }
     }
