@@ -27,16 +27,19 @@ namespace effigy
             std::unique_ptr<juce::Label> label;
         };
 
-        juce::Slider*   addKnob(const juce::String& section, const char* id, const juce::String& name);
-        juce::ToggleButton* addToggle(const juce::String& section, const char* id, const juce::String& name);
+        juce::Slider*   addKnob(const juce::String& section, const char* id, const juce::String& name,
+                                const juce::String& tip);
+        juce::ToggleButton* addToggle(const juce::String& section, const char* id, const juce::String& name,
+                                      const juce::String& tip);
         juce::ComboBox* addCombo(const juce::String& section, const char* id, const juce::String& name,
-                                 const juce::StringArray& items);
+                                 const juce::StringArray& items, const juce::String& tip);
 
         void timerCallback() override;
         void loadIR(bool slotB);
 
         EffigyAudioProcessor& proc;
         EffigyLookAndFeel lnf;
+        juce::TooltipWindow tooltipWindow { this, 600 };
 
         std::vector<Control> controls;
         juce::OwnedArray<SliderAtt> sliderAtts;
